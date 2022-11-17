@@ -7,6 +7,7 @@ export default class GroupingRowPlugin extends BasePlugin {
   protected revogrid: HTMLRevoGridElement;
   private providers;
   private options;
+  private grouping;
   get hasProps(): number;
   get store(): import("../../interfaces").Observable<import("../../store/dataSource/data.store").DataSourceState<RevoGrid.DataType, RevoGrid.DimensionRows>>;
   get rowItems(): number[];

@@ -2,7 +2,7 @@
  * Built by Revolist
  */
 import { h, proxyCustomElement, HTMLElement, createEvent } from '@stencil/core/internal/client';
-import { C as ColumnService, l as GROUP_EXPAND_BTN, h as GROUP_EXPAND_EVENT, m as PSEUDO_GROUP_ITEM, G as GROUP_EXPANDED, c as GROUP_DEPTH, i as isGrouping } from './columnService.js';
+import { C as ColumnService, m as GROUP_EXPAND_BTN, j as GROUP_EXPAND_EVENT, f as PSEUDO_GROUP_ITEM, G as GROUP_EXPANDED, c as GROUP_DEPTH, i as isGrouping } from './columnService.js';
 import { D as DRAGGABLE_CLASS, a as DRAG_ICON_CLASS, b as DATA_COL, c as DATA_ROW } from './consts.js';
 import { g as getSourceItem } from './data.store.js';
 

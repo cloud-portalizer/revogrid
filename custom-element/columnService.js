@@ -705,4 +705,4 @@ class ColumnService {
   }
 }
 
-export { ColumnService as C, EMPTY_INDEX as E, GROUP_EXPANDED as G, PSEUDO_GROUP_ITEM_VALUE as P, SelectionStoreConnector as S, getParsedGroup as a, isSameGroup as b, GROUP_DEPTH as c, PSEUDO_GROUP_ITEM_ID as d, GROUPING_ROW_TYPE as e, PSEUDO_GROUP_COLUMN as f, getGroupingName as g, GROUP_EXPAND_EVENT as h, isGrouping as i, gatherGrouping as j, isGroupingColumn as k, GROUP_EXPAND_BTN as l, PSEUDO_GROUP_ITEM as m, getRange as n, isRangeSingleCell as o };
+export { ColumnService as C, EMPTY_INDEX as E, GROUP_EXPANDED as G, PSEUDO_GROUP_ITEM_VALUE as P, SelectionStoreConnector as S, getParsedGroup as a, isSameGroup as b, GROUP_DEPTH as c, PSEUDO_GROUP_ITEM_ID as d, GROUPING_ROW_TYPE as e, PSEUDO_GROUP_ITEM as f, getGroupingName as g, PSEUDO_GROUP_COLUMN as h, isGrouping as i, GROUP_EXPAND_EVENT as j, gatherGrouping as k, isGroupingColumn as l, GROUP_EXPAND_BTN as m, getRange as n, isRangeSingleCell as o };

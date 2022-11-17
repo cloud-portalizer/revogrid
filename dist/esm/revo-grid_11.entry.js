@@ -6377,6 +6377,7 @@ class GroupingRowPlugin extends BasePlugin {
     super(revogrid);
     this.revogrid = revogrid;
     this.providers = providers;
+    this.grouping = {};
   }
   get hasProps() {
     var _a, _b, _c;
@@ -6406,6 +6407,7 @@ class GroupingRowPlugin extends BasePlugin {
     const model = source[i];
     const prevExpanded = model[GROUP_EXPANDED];
     if (!prevExpanded) {
+      this.grouping[model[PSEUDO_GROUP_ITEM]] = true;
       const { trimmed, items } = doExpand(virtualIndex, source, this.rowItems);
       newTrimmed = Object.assign(Object.assign({}, newTrimmed), trimmed);
       if (items) {
@@ -6413,6 +6415,7 @@ class GroupingRowPlugin extends BasePlugin {
       }
     }
     else {
+      delete this.grouping[model[PSEUDO_GROUP_ITEM]];
       const { trimmed } = doCollapse(i, source);
       newTrimmed = Object.assign(Object.assign({}, newTrimmed), trimmed);
       this.revogrid.clearFocus();
@@ -6555,9 +6558,10 @@ class GroupingRowPlugin extends BasePlugin {
     if (!this.hasProps || !(data === null || data === void 0 ? void 0 : data.source) || !data.source.length) {
       return;
     }
+    console.log(this.grouping);
     const source = data.source.filter(s => !isGrouping(s));
     const expanded = this.revogrid.grouping || {};
-    const { sourceWithGroups, depth, trimmed, oldNewIndexMap, childrenByGroup } = gatherGrouping(source, ((_a = this.options) === null || _a === void 0 ? void 0 : _a.props) || [], Object.assign({}, (expanded || {})));
+    const { sourceWithGroups, depth, trimmed, oldNewIndexMap, childrenByGroup } = gatherGrouping(source, ((_a = this.options) === null || _a === void 0 ? void 0 : _a.props) || [], Object.assign({ prevExpanded: Object.assign({}, this.grouping) }, (expanded || {})));
     data.source = sourceWithGroups;
     this.providers.dataProvider.setGrouping({ depth });
     this.updateTrimmed(trimmed, childrenByGroup, oldNewIndexMap);

@@ -13,7 +13,7 @@ import { t as timeout, g as getScrollbarWidth } from './utils.js';
 import { i as isFilterBtn, F as FILTER_PROP } from './filter.button.js';
 import { i as isString_1, d as defineCustomElement$a } from './revogr-edit2.js';
 import { t as toInteger_1 } from './toInteger.js';
-import { i as isGrouping, g as getGroupingName, G as GROUP_EXPANDED, a as getParsedGroup, b as isSameGroup, c as GROUP_DEPTH, P as PSEUDO_GROUP_ITEM_VALUE, d as PSEUDO_GROUP_ITEM_ID, e as GROUPING_ROW_TYPE, f as PSEUDO_GROUP_COLUMN, h as GROUP_EXPAND_EVENT, j as gatherGrouping, k as isGroupingColumn, E as EMPTY_INDEX, S as SelectionStoreConnector } from './columnService.js';
+import { i as isGrouping, g as getGroupingName, G as GROUP_EXPANDED, a as getParsedGroup, b as isSameGroup, c as GROUP_DEPTH, P as PSEUDO_GROUP_ITEM_VALUE, d as PSEUDO_GROUP_ITEM_ID, e as GROUPING_ROW_TYPE, f as PSEUDO_GROUP_ITEM, h as PSEUDO_GROUP_COLUMN, j as GROUP_EXPAND_EVENT, k as gatherGrouping, l as isGroupingColumn, E as EMPTY_INDEX, S as SelectionStoreConnector } from './columnService.js';
 import { g as getLastCell, H as HEADER_SLOT, C as CONTENT_SLOT, F as FOOTER_SLOT, D as DATA_SLOT, d as defineCustomElement$2 } from './revogr-viewport-scroll2.js';
 import { l as lodash, d as defineCustomElement$3 } from './revogr-temp-range2.js';
 import { d as debounce_1 } from './debounce.js';
@@ -2057,6 +2057,7 @@ class GroupingRowPlugin extends BasePlugin {
     super(revogrid);
     this.revogrid = revogrid;
     this.providers = providers;
+    this.grouping = {};
   }
   get hasProps() {
     var _a, _b, _c;
@@ -2086,6 +2087,7 @@ class GroupingRowPlugin extends BasePlugin {
     const model = source[i];
     const prevExpanded = model[GROUP_EXPANDED];
     if (!prevExpanded) {
+      this.grouping[model[PSEUDO_GROUP_ITEM]] = true;
       const { trimmed, items } = doExpand(virtualIndex, source, this.rowItems);
       newTrimmed = Object.assign(Object.assign({}, newTrimmed), trimmed);
       if (items) {
@@ -2093,6 +2095,7 @@ class GroupingRowPlugin extends BasePlugin {
       }
     }
     else {
+      delete this.grouping[model[PSEUDO_GROUP_ITEM]];
       const { trimmed } = doCollapse(i, source);
       newTrimmed = Object.assign(Object.assign({}, newTrimmed), trimmed);
       this.revogrid.clearFocus();
@@ -2235,9 +2238,10 @@ class GroupingRowPlugin extends BasePlugin {
     if (!this.hasProps || !(data === null || data === void 0 ? void 0 : data.source) || !data.source.length) {
       return;
     }
+    console.log(this.grouping);
     const source = data.source.filter(s => !isGrouping(s));
     const expanded = this.revogrid.grouping || {};
-    const { sourceWithGroups, depth, trimmed, oldNewIndexMap, childrenByGroup } = gatherGrouping(source, ((_a = this.options) === null || _a === void 0 ? void 0 : _a.props) || [], Object.assign({}, (expanded || {})));
+    const { sourceWithGroups, depth, trimmed, oldNewIndexMap, childrenByGroup } = gatherGrouping(source, ((_a = this.options) === null || _a === void 0 ? void 0 : _a.props) || [], Object.assign({ prevExpanded: Object.assign({}, this.grouping) }, (expanded || {})));
     data.source = sourceWithGroups;
     this.providers.dataProvider.setGrouping({ depth });
     this.updateTrimmed(trimmed, childrenByGroup, oldNewIndexMap);
