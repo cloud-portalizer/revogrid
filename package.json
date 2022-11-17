@@ -1,5 +1,5 @@
 {
-  "name": "@revolist/revogrid",
+  "name": "@prtlzr/revogrid",
   "version": "3.3.0",
   "description": "Virtual reactive data grid component - RevoGrid.",
   "license": "MIT",
@@ -7,14 +7,6 @@
     "doc": "docs"
   },
   "author": "revolist",
-  "homepage": "https://github.com/revolist/revogrid#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/revolist/revogrid.git"
-  },
-  "bugs": {
-    "url": "https://github.com/revolist/revogrid/issues"
-  },
   "keywords": [
     "revo-grid",
     "revolist",
